@@ -1,0 +1,13 @@
+
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;margin:24px;line-height:1.6;background:#f8fafc;color:#0f172a}
+h1{font-size:1.8rem;margin-bottom:8px}
+p.meta{color:#475569}
+.list{margin-top:16px;padding:0;list-style:none}
+.item{background:#fff;border:1px solid #e2e8f0;border-radius:12px;margin:10px 0;padding:12px}
+.item a{color:#0ea5e9;text-decoration:none;font-weight:600}
+.badge{font-size:.75rem;background:#e2e8f0;border-radius:999px;padding:2px 8px;color:#334155;margin-left:8px}
+footer{margin-top:32px;color:#64748b;font-size:.9rem}
+.header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.search{flex:1;min-width:220px}
+input[type="search"]{width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;outline:none}
+.small{font-size:.85rem}

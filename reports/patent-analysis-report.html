@@ -1,0 +1,437 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patent Analysis Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', gantt: { axisFormat: "%Y-%m" } });
+    </script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 20px; background-color: #f8f9fa; color: #333; font-size: 14px;}
+        h1 { font-size: 2em; color: #f59e0b; text-align: center; }
+        h2 { color: #333; border-bottom: 2px solid #f59e0b; padding-bottom: 5px; margin-top: 40px; }
+        .container { width: 100%; overflow-x: auto; margin-bottom: 40px; border: 1px solid #e0e0e0; padding: 10px; border-radius: 8px; background-color: #ffffff; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; background: #ffffff; border: 1px solid #ddd; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; vertical-align: top; white-space: nowrap; }
+        td.wrap-text { white-space: normal; }
+        th { background-color: #f2f2f2; font-weight: bold; }
+        tr.category-header > td { background-color: #e9ecef; font-weight: bold; font-size: 1.1em; }
+        tr.note-row > td { background-color: #fafafa; }
+        a { color: #007bff; text-decoration: none; }
+        .controls { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 15px; }
+        .controls h2 { margin: 0; border: none; }
+        .controls .button-group button { background-color: #f59e0b; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 14px; margin-left: 10px; }
+        .controls .button-group button:hover { background-color: #e08e0b; }
+        .editable-field, textarea.editable-field {
+            border: 1px solid transparent; background-color: transparent; width: 100%;
+            padding: 2px; margin: 0; font-size: inherit; font-family: inherit;
+            color: inherit; cursor: text; box-sizing: border-box; resize: vertical; overflow: hidden;
+        }
+        .editable-field:focus, textarea.editable-field:focus {
+            border: 1px solid #f59e0b; background-color: #fff; outline: none; box-shadow: 0 0 3px rgba(245, 158, 11, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <h1>PTAxial&trade;</h1>
+    <div class="container"><h2>Timeline</h2><div class="mermaid">gantt
+    title Patent Expiry Timeline
+    axisFormat %Y-%m
+    todayMarker stroke:red,stroke-width:2px
+    section Method of use
+        US8106163B2 :active, 2030-04-14, 3d
+        US9340620B2 :active, 2032-02-11, 3d
+        US20220356261A1 :active, 2040-10-23, 3d
+    section Formulation
+        US10899841B2 :active, 2031-12-08, 3d
+        US9458240B2 :active, 2032-12-01, 3d
+        US12054555B2 :active, 2033-03-19, 3d
+        US20160368999A1 :active, 2036-09-01, 3d
+        US20180179290A1 :active, 2038-02-13, 3d
+        US20250163170A1 :active, 2044-07-12, 3d
+    section API
+        US9382326B2 :active, 2032-02-01, 3d
+    section Second MOU
+        US20230279132A1 :active, 2041-08-04, 3d
+        Today :active, 2025-08-12, 1d</div></div>
+    <div class="container">
+        <div class="controls">
+            <h2>Patent Table</h2>
+            <div class="button-group">
+                <button onclick="exportSelectedDataToCSV()" title="只匯出打勾的項目，方便分享與局部處理">匯出已勾選項目</button>
+                <button onclick="exportFullVersionToCSV()" title="匯出整份報告的當前狀態，作為新版本存檔">匯出完整版本 (另存新檔)</button>
+                <button onclick="document.getElementById('fileInput').click()">載入資料</button>
+                <input type="file" id="fileInput" style="display: none;" onchange="loadDataFromCSV(event)" accept=".csv">
+            </div>
+        </div>
+        <table id="patent-data-table">
+            <thead>
+                <tr>
+                    <th style="width: 40px;"><input type="checkbox" id="select-all-checkbox" title="全選/取消全選"></th>
+                    <th style="min-width: 180px;">Patent Number</th>
+                    <th style="min-width: 300px;">Title</th>
+                    <th style="min-width: 150px;">Category</th>
+                    <th style="min-width: 200px;">Technology Tag</th>
+                    <th style="min-width: 200px;">Efficacy Tag</th>
+                    <th style="min-width: 120px;">Expiry Date</th>
+                    <th style="min-width: 120px;">PTA Extension</th>
+                </tr>
+            </thead>
+            <tbody>
+<tr class="category-header"><td colspan="8"><strong>API</strong></td></tr>
+        <tr data-patent-number="US9382326B2">
+            <td><input type="checkbox" class="export-checkbox"></td>
+            <td><a href="https://patents.google.com/patent/US9382326B2" target="_blank">US9382326B2</a></td>
+            <td class="wrap-text"><textarea rows="1" class="editable-field" data-column="Title">Compositions and methods of use for therapeutic antibodies</textarea></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Category" value="API"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Technology Tag" value="CDR"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Efficacy Tag" value="Others"></td>
+            <td><input type="text" class="editable-field" data-column="Expiry Date" value="2032-02-01"></td>
+            <td><input type="text" class="editable-field" data-column="PTA Extension" value="Adjusted"></td>
+        </tr>
+        <tr class="note-row" data-patent-number="US9382326B2">
+            <td style="display:none;">
+                <input type="hidden" class="editable-field" data-column="Patent Number" value="US9382326B2">
+                <input type="hidden" class="editable-field" data-column="Classification Tag" value="Unclassified">
+                <input type="hidden" class="editable-field" data-column="Application Date" value="2011-12-15">
+                <input type="hidden" class="editable-field" data-column="Is Terminal Disclaimer" value="False">
+                <input type="hidden" class="editable-field" data-column="Abstract" value="The present invention relates to antibodies that specifically bind to the BAFF receptor (BAFFR). The invention more specifically relates to specific antibodies that are BAFFR antagonists with in vivo B cell depleting activity and compositions and methods of use for said antibodies to treat pathological disorders that can be treated by killing or depleting B cells, such as systemic lupus erythematosus or rheumatoid arthritis or other autoimmune diseases or lymphomas, leukemias and myelomas.">
+            </td>
+            <td></td>
+            <td colspan="7"><textarea rows="2" class="editable-field" data-column="Note" placeholder="點此輸入註解...">Kd, IC50</textarea></td>
+        </tr>
+    <tr class="category-header"><td colspan="8"><strong>Formulation</strong></td></tr>
+        <tr data-patent-number="US20250163170A1">
+            <td><input type="checkbox" class="export-checkbox"></td>
+            <td><a href="https://patents.google.com/patent/US20250163170A1" target="_blank">US20250163170A1</a></td>
+            <td class="wrap-text"><textarea rows="1" class="editable-field" data-column="Title">ANTIBODY FORMULATION</textarea></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Category" value="Formulation"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Technology Tag" value="nan"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Efficacy Tag" value="anti baffr pharmaceutical aqueous"></td>
+            <td><input type="text" class="editable-field" data-column="Expiry Date" value="2044-07-12"></td>
+            <td><input type="text" class="editable-field" data-column="PTA Extension" value="nan"></td>
+        </tr>
+        <tr class="note-row" data-patent-number="US20250163170A1">
+            <td style="display:none;">
+                <input type="hidden" class="editable-field" data-column="Patent Number" value="US20250163170A1">
+                <input type="hidden" class="editable-field" data-column="Classification Tag" value="Unclassified">
+                <input type="hidden" class="editable-field" data-column="Application Date" value="2024-07-12">
+                <input type="hidden" class="editable-field" data-column="Is Terminal Disclaimer" value="False">
+                <input type="hidden" class="editable-field" data-column="Abstract" value="Anti-BAFFR antibodies are formulated as lyophilisate or liquid formulation. The lyophilisates can be reconstituted to give a solution with a high concentration of the antibody active ingredient for delivery to a patient without high levels of antibody aggregation. The lyophilisate can be reconstituted with an aqueous reconstituent to provide an aqueous composition in which the antibody has a concentration of at least 50 mg/ml. The lyophilisate or aqueous pharmaceutical composition may include one or more of a sugar, a buffering agent, a surfactant, and/or a free amino acid.">
+            </td>
+            <td></td>
+            <td colspan="7"><textarea rows="2" class="editable-field" data-column="Note" placeholder="點此輸入註解...">For pending purpose, too broad</textarea></td>
+        </tr>
+    
+        <tr data-patent-number="US20180179290A1">
+            <td><input type="checkbox" class="export-checkbox"></td>
+            <td><a href="https://patents.google.com/patent/US20180179290A1" target="_blank">US20180179290A1</a></td>
+            <td class="wrap-text"><textarea rows="1" class="editable-field" data-column="Title">ANTIBODY FORMULATION</textarea></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Category" value="Formulation"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Technology Tag" value="nan"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Efficacy Tag" value="anti baffr pharmaceutical"></td>
+            <td><input type="text" class="editable-field" data-column="Expiry Date" value="2038-02-13"></td>
+            <td><input type="text" class="editable-field" data-column="PTA Extension" value="nan"></td>
+        </tr>
+        <tr class="note-row" data-patent-number="US20180179290A1">
+            <td style="display:none;">
+                <input type="hidden" class="editable-field" data-column="Patent Number" value="US20180179290A1">
+                <input type="hidden" class="editable-field" data-column="Classification Tag" value="Unclassified">
+                <input type="hidden" class="editable-field" data-column="Application Date" value="2018-02-13">
+                <input type="hidden" class="editable-field" data-column="Is Terminal Disclaimer" value="False">
+                <input type="hidden" class="editable-field" data-column="Abstract" value="Anti-BAFFR antibodies are formulated as lyophilisate or liquid formulation. The lyophilisates can be reconstituted to give a solution with a high concentration of the antibody active ingredient for delivery to a patient without high levels of antibody aggregation. The lyophilisate can be reconstituted with an aqueous reconstituent to provide an aqueous composition in which the antibody has a concentration of at least 50 mg/ml. The lyophilisate or aqueous pharmaceutical composition may include one or more of a sugar, a buffering agent, a surfactant and/or a free amino acid.">
+            </td>
+            <td></td>
+            <td colspan="7"><textarea rows="2" class="editable-field" data-column="Note" placeholder="點此輸入註解...">Abandoned</textarea></td>
+        </tr>
+    
+        <tr data-patent-number="US20160368999A1">
+            <td><input type="checkbox" class="export-checkbox"></td>
+            <td><a href="https://patents.google.com/patent/US20160368999A1" target="_blank">US20160368999A1</a></td>
+            <td class="wrap-text"><textarea rows="1" class="editable-field" data-column="Title">ANTIBODY FORMULATION</textarea></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Category" value="Formulation"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Technology Tag" value="nan"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Efficacy Tag" value="anti baffr pharmaceutical"></td>
+            <td><input type="text" class="editable-field" data-column="Expiry Date" value="2036-09-01"></td>
+            <td><input type="text" class="editable-field" data-column="PTA Extension" value="nan"></td>
+        </tr>
+        <tr class="note-row" data-patent-number="US20160368999A1">
+            <td style="display:none;">
+                <input type="hidden" class="editable-field" data-column="Patent Number" value="US20160368999A1">
+                <input type="hidden" class="editable-field" data-column="Classification Tag" value="Unclassified">
+                <input type="hidden" class="editable-field" data-column="Application Date" value="2016-09-01">
+                <input type="hidden" class="editable-field" data-column="Is Terminal Disclaimer" value="False">
+                <input type="hidden" class="editable-field" data-column="Abstract" value="Anti-BAFFR antibodies are formulated as lyophilisate or liquid formulation. The lyophilisates can be reconstituted to give a solution with a high concentration of the antibody active ingredient for delivery to a patient without high levels of antibody aggregation. The lyophilisate can be reconstituted with an aqueous reconstituent to provide an aqueous composition in which the antibody has a concentration of at least 50 mg/ml. The lyophilisate or aqueous pharmaceutical composition may include one or more of a sugar, a buffering agent, a surfactant, and/or a free amino acid.">
+            </td>
+            <td></td>
+            <td colspan="7"><textarea rows="2" class="editable-field" data-column="Note" placeholder="點此輸入註解...">Abandoned</textarea></td>
+        </tr>
+    
+        <tr data-patent-number="US9458240B2">
+            <td><input type="checkbox" class="export-checkbox"></td>
+            <td><a href="https://patents.google.com/patent/US9458240B2" target="_blank">US9458240B2</a></td>
+            <td class="wrap-text"><textarea rows="1" class="editable-field" data-column="Title">Anti-BAFFR antibody formulations</textarea></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Category" value="Formulation"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Technology Tag" value="delivery device antibody"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Efficacy Tag" value="anti baffr pharmaceutical"></td>
+            <td><input type="text" class="editable-field" data-column="Expiry Date" value="2032-12-01"></td>
+            <td><input type="text" class="editable-field" data-column="PTA Extension" value="Adjusted"></td>
+        </tr>
+        <tr class="note-row" data-patent-number="US9458240B2">
+            <td style="display:none;">
+                <input type="hidden" class="editable-field" data-column="Patent Number" value="US9458240B2">
+                <input type="hidden" class="editable-field" data-column="Classification Tag" value="Unclassified">
+                <input type="hidden" class="editable-field" data-column="Application Date" value="2011-12-08">
+                <input type="hidden" class="editable-field" data-column="Is Terminal Disclaimer" value="False">
+                <input type="hidden" class="editable-field" data-column="Abstract" value="Anti-BAFFR antibodies are formulated as lyophilisate or liquid formulation. The lyophilisates can be reconstituted to give a solution with a high concentration of the antibody active ingredient for delivery to a patient without high levels of antibody aggregation. The lyophilisate can be reconstituted with an aqueous reconstituent to provide an aqueous composition in which the antibody has a concentration of at least 50 mg/ml. The lyophilisate or aqueous pharmaceutical composition may include one or more of a sugar, a buffering agent, a surfactant, and/or a free amino acid.">
+            </td>
+            <td></td>
+            <td colspan="7"><textarea rows="2" class="editable-field" data-column="Note" placeholder="點此輸入註解...">pH6.5, polysorbate</textarea></td>
+        </tr>
+    
+        <tr data-patent-number="US12054555B2">
+            <td><input type="checkbox" class="export-checkbox"></td>
+            <td><a href="https://patents.google.com/patent/US12054555B2" target="_blank">US12054555B2</a></td>
+            <td class="wrap-text"><textarea rows="1" class="editable-field" data-column="Title">Anti-BAFFR antibody formulations and methods of use thereof</textarea></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Category" value="Formulation"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Technology Tag" value="cells antibody agent"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Efficacy Tag" value="anti baffr pharmaceutical"></td>
+            <td><input type="text" class="editable-field" data-column="Expiry Date" value="2033-03-19"></td>
+            <td><input type="text" class="editable-field" data-column="PTA Extension" value="Adjusted"></td>
+        </tr>
+        <tr class="note-row" data-patent-number="US12054555B2">
+            <td style="display:none;">
+                <input type="hidden" class="editable-field" data-column="Patent Number" value="US12054555B2">
+                <input type="hidden" class="editable-field" data-column="Classification Tag" value="Unclassified">
+                <input type="hidden" class="editable-field" data-column="Application Date" value="2020-12-18">
+                <input type="hidden" class="editable-field" data-column="Is Terminal Disclaimer" value="False">
+                <input type="hidden" class="editable-field" data-column="Abstract" value="Anti-BAFFR antibodies are formulated as lyophilisate or liquid formulation. The lyophilisates can be reconstituted to give a solution with a high concentration of the antibody active ingredient for delivery to a patient without high levels of antibody aggregation. The lyophilisate can be reconstituted with an aqueous reconstituent to provide an aqueous composition in which the antibody has a concentration of at least 50 mg/ml. The lyophilisate or aqueous pharmaceutical composition may include one or more of a sugar, a buffering agent, a surfactant, and/or a free amino acid.">
+            </td>
+            <td></td>
+            <td colspan="7"><textarea rows="2" class="editable-field" data-column="Note" placeholder="點此輸入註解...">skinny label , pH 6.5, exipient amount limitation</textarea></td>
+        </tr>
+    
+        <tr data-patent-number="US10899841B2">
+            <td><input type="checkbox" class="export-checkbox"></td>
+            <td><a href="https://patents.google.com/patent/US10899841B2" target="_blank">US10899841B2</a></td>
+            <td class="wrap-text"><textarea rows="1" class="editable-field" data-column="Title">Anti-BAFFR antibody formulations and methods of use thereof</textarea></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Category" value="Formulation"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Technology Tag" value="lyophilized"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Efficacy Tag" value="anti baffr pharmaceutical"></td>
+            <td><input type="text" class="editable-field" data-column="Expiry Date" value="2031-12-08"></td>
+            <td><input type="text" class="editable-field" data-column="PTA Extension" value="Adjusted"></td>
+        </tr>
+        <tr class="note-row" data-patent-number="US10899841B2">
+            <td style="display:none;">
+                <input type="hidden" class="editable-field" data-column="Patent Number" value="US10899841B2">
+                <input type="hidden" class="editable-field" data-column="Classification Tag" value="Unclassified">
+                <input type="hidden" class="editable-field" data-column="Application Date" value="2019-03-06">
+                <input type="hidden" class="editable-field" data-column="Is Terminal Disclaimer" value="False">
+                <input type="hidden" class="editable-field" data-column="Abstract" value="Anti-BAFFR antibodies are formulated as lyophilisate or liquid formulation. The lyophilisates can be reconstituted to give a solution with a high concentration of the antibody active ingredient for delivery to a patient without high levels of antibody aggregation. The lyophilisate can be reconstituted with an aqueous reconstituent to provide an aqueous composition in which the antibody has a concentration of at least 50 mg/ml. The lyophilisate or aqueous pharmaceutical composition may include one or more of a sugar, a buffering agent, a surfactant, and/or a free amino acid.">
+            </td>
+            <td></td>
+            <td colspan="7"><textarea rows="2" class="editable-field" data-column="Note" placeholder="點此輸入註解...">lyophilized</textarea></td>
+        </tr>
+    <tr class="category-header"><td colspan="8"><strong>Method of use</strong></td></tr>
+        <tr data-patent-number="US9340620B2">
+            <td><input type="checkbox" class="export-checkbox"></td>
+            <td><a href="https://patents.google.com/patent/US9340620B2" target="_blank">US9340620B2</a></td>
+            <td class="wrap-text"><textarea rows="1" class="editable-field" data-column="Title">Compositions and methods of use for therapeutic antibodies</textarea></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Category" value="Method of use"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Technology Tag" value="CDR"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Efficacy Tag" value="Others"></td>
+            <td><input type="text" class="editable-field" data-column="Expiry Date" value="2032-02-11"></td>
+            <td><input type="text" class="editable-field" data-column="PTA Extension" value="Adjusted"></td>
+        </tr>
+        <tr class="note-row" data-patent-number="US9340620B2">
+            <td style="display:none;">
+                <input type="hidden" class="editable-field" data-column="Patent Number" value="US9340620B2">
+                <input type="hidden" class="editable-field" data-column="Classification Tag" value="Unclassified">
+                <input type="hidden" class="editable-field" data-column="Application Date" value="2011-12-15">
+                <input type="hidden" class="editable-field" data-column="Is Terminal Disclaimer" value="False">
+                <input type="hidden" class="editable-field" data-column="Abstract" value="The present invention relates to antibodies that specifically bind to the BAFF receptor (BAFFR). The invention more specifically relates to specific antibodies that are BAFFR antagonists with in vivo B cell depleting activity and compositions and methods of use for said antibodies to treat pathological disorders that can be treated by killing or depleting B cells, such as systemic lupus erythematosus or rheumatoid arthritis or other autoimmune diseases or lymphomas, leukemias and myelomas.">
+            </td>
+            <td></td>
+            <td colspan="7"><textarea rows="2" class="editable-field" data-column="Note" placeholder="點此輸入註解...">nan</textarea></td>
+        </tr>
+    
+        <tr data-patent-number="US8106163B2">
+            <td><input type="checkbox" class="export-checkbox"></td>
+            <td><a href="https://patents.google.com/patent/US8106163B2" target="_blank">US8106163B2</a></td>
+            <td class="wrap-text"><textarea rows="1" class="editable-field" data-column="Title">Compositions and methods of use for therapeutic antibodies</textarea></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Category" value="Method of use"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Technology Tag" value="CDR"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Efficacy Tag" value="Others"></td>
+            <td><input type="text" class="editable-field" data-column="Expiry Date" value="2030-04-14"></td>
+            <td><input type="text" class="editable-field" data-column="PTA Extension" value="Adjusted"></td>
+        </tr>
+        <tr class="note-row" data-patent-number="US8106163B2">
+            <td style="display:none;">
+                <input type="hidden" class="editable-field" data-column="Patent Number" value="US8106163B2">
+                <input type="hidden" class="editable-field" data-column="Classification Tag" value="Unclassified">
+                <input type="hidden" class="editable-field" data-column="Application Date" value="2009-07-15">
+                <input type="hidden" class="editable-field" data-column="Is Terminal Disclaimer" value="False">
+                <input type="hidden" class="editable-field" data-column="Abstract" value="The present invention relates to antibodies that specifically bind to the BAFF receptor (BAFFR). The invention more specifically relates to specific antibodies that are BAFFR antagonists with in vivo B cell depleting activity and compositions and methods of use for said antibodies to treat pathological disorders that can be treated by killing or depleting B cells, such as systemic lupus erythematosus or rheumatoid arthritis or other autoimmune diseases or lymphomas, leukemias and myelomas.">
+            </td>
+            <td></td>
+            <td colspan="7"><textarea rows="2" class="editable-field" data-column="Note" placeholder="點此輸入註解...">CDR</textarea></td>
+        </tr>
+    
+        <tr data-patent-number="US20220356261A1">
+            <td><input type="checkbox" class="export-checkbox"></td>
+            <td><a href="https://patents.google.com/patent/US20220356261A1" target="_blank">US20220356261A1</a></td>
+            <td class="wrap-text"><textarea rows="1" class="editable-field" data-column="Title">TREATMENT FOR SJÖGREN&#x27;S SYNDROME</textarea></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Category" value="Method of use"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Technology Tag" value="ianalumab"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Efficacy Tag" value="Sjögren&#x27;s syndrome"></td>
+            <td><input type="text" class="editable-field" data-column="Expiry Date" value="2040-10-23"></td>
+            <td><input type="text" class="editable-field" data-column="PTA Extension" value="nan"></td>
+        </tr>
+        <tr class="note-row" data-patent-number="US20220356261A1">
+            <td style="display:none;">
+                <input type="hidden" class="editable-field" data-column="Patent Number" value="US20220356261A1">
+                <input type="hidden" class="editable-field" data-column="Classification Tag" value="Unclassified">
+                <input type="hidden" class="editable-field" data-column="Application Date" value="2020-10-23">
+                <input type="hidden" class="editable-field" data-column="Is Terminal Disclaimer" value="False">
+                <input type="hidden" class="editable-field" data-column="Abstract" value="The present disclosure relates to methods for treating Sjögren&#x27;s Syndrome disease using therapeutically effective doses of anti-BAFFR antibody, such as ianalumab.">
+            </td>
+            <td></td>
+            <td colspan="7"><textarea rows="2" class="editable-field" data-column="Note" placeholder="點此輸入註解...">nan</textarea></td>
+        </tr>
+    <tr class="category-header"><td colspan="8"><strong>Second MOU</strong></td></tr>
+        <tr data-patent-number="US20230279132A1">
+            <td><input type="checkbox" class="export-checkbox"></td>
+            <td><a href="https://patents.google.com/patent/US20230279132A1" target="_blank">US20230279132A1</a></td>
+            <td class="wrap-text"><textarea rows="1" class="editable-field" data-column="Title">TREATMENT OF B CELL MALIGNANCIES</textarea></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Category" value="Second MOU"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Technology Tag" value="anti-BAFFR antibody"></td>
+            <td class="wrap-text"><input type="text" class="editable-field" data-column="Efficacy Tag" value="B cell malignacy"></td>
+            <td><input type="text" class="editable-field" data-column="Expiry Date" value="2041-08-04"></td>
+            <td><input type="text" class="editable-field" data-column="PTA Extension" value="nan"></td>
+        </tr>
+        <tr class="note-row" data-patent-number="US20230279132A1">
+            <td style="display:none;">
+                <input type="hidden" class="editable-field" data-column="Patent Number" value="US20230279132A1">
+                <input type="hidden" class="editable-field" data-column="Classification Tag" value="Unclassified">
+                <input type="hidden" class="editable-field" data-column="Application Date" value="2021-08-04">
+                <input type="hidden" class="editable-field" data-column="Is Terminal Disclaimer" value="False">
+                <input type="hidden" class="editable-field" data-column="Abstract" value="The present disclosure relates to anti-BAFFR antibodies and binding fragments thereof, alone or in combination with additional agents, for use in the treatment of B cell malignancies, for example a B-cell non-Hodgkin&#x27;s lymphoma.">
+            </td>
+            <td></td>
+            <td colspan="7"><textarea rows="2" class="editable-field" data-column="Note" placeholder="點此輸入註解...">nan</textarea></td>
+        </tr>
+    </tbody></table></div><div class="container"><h2>2-D Matrix: Category vs. Efficacy</h2><table><thead><tr><th>Category / Efficacy</th><th>B cell malignacy</th><th>Sjögren&#x27;s syndrome</th><th>anti baffr pharmaceutical</th><th>anti baffr pharmaceutical aqueous</th></tr></thead><tbody><tr><td>Formulation</td><td></td><td></td><td class='wrap-text'><a href="https://patents.google.com/patent/US20180179290A1" target="_blank">US20180179290A1</a>, <a href="https://patents.google.com/patent/US20160368999A1" target="_blank">US20160368999A1</a>, <a href="https://patents.google.com/patent/US9458240B2" target="_blank">US9458240B2</a>, <a href="https://patents.google.com/patent/US12054555B2" target="_blank">US12054555B2</a>, <a href="https://patents.google.com/patent/US10899841B2" target="_blank">US10899841B2</a></td><td class='wrap-text'><a href="https://patents.google.com/patent/US20250163170A1" target="_blank">US20250163170A1</a></td></tr><tr><td>Method of use</td><td></td><td class='wrap-text'><a href="https://patents.google.com/patent/US20220356261A1" target="_blank">US20220356261A1</a></td><td></td><td></td></tr><tr><td>Second MOU</td><td class='wrap-text'><a href="https://patents.google.com/patent/US20230279132A1" target="_blank">US20230279132A1</a></td><td></td><td></td><td></td></tr></tbody></table></div>
+    <footer><p>&copy; 2025 Eudaimonia IP Consulting. All rights reserved.</p></footer>
+<script>
+    // This script block contains all the final, working Javascript functions.
+    // (JavaScript is unchanged from the last working version)
+    function autoResizeTextarea(element) { element.style.height = 'auto'; element.style.height = (element.scrollHeight) + 'px'; }
+    function setupEventListeners() {
+        try { mermaid.run({ querySelector: ".mermaid" }); } catch(e) { console.error("Mermaid Error:", e); }
+        var selectAllCheckbox = document.getElementById('select-all-checkbox');
+        var itemCheckboxes = document.querySelectorAll('#patent-data-table .export-checkbox');
+        if(selectAllCheckbox) {
+            selectAllCheckbox.addEventListener('change', function() { itemCheckboxes.forEach(function(c) { c.checked = selectAllCheckbox.checked; }); });
+        }
+        itemCheckboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                if (!checkbox.checked) { selectAllCheckbox.checked = false; }
+                else { selectAllCheckbox.checked = Array.from(itemCheckboxes).every(function(cb) { return cb.checked; }); }
+            });
+        });
+        document.querySelectorAll('textarea.editable-field').forEach(function(textarea) {
+            textarea.addEventListener('input', function() { autoResizeTextarea(this); });
+            autoResizeTextarea(textarea);
+        });
+    }
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', setupEventListeners); } else { setupEventListeners(); }
+    function sanitizeCell(cellData) { var data = String(cellData == null ? '' : cellData); if (/[",\r\n]/.test(data)) { return '"' + data.replace(/"/g, '""') + '"'; } return data; }
+    function gatherRowData(dataRow) {
+        var noteRow = dataRow.nextElementSibling;
+        var rowData = {};
+        [...dataRow.querySelectorAll('.editable-field'), ...(noteRow ? noteRow.querySelectorAll('.editable-field') : [])].forEach(function(field) {
+             rowData[field.dataset.column] = field.value; 
+        });
+        return rowData;
+    }
+    function downloadCSV(csvContent, filename) {
+        if (!csvContent) { alert("沒有資料可供匯出。"); return; }
+        var blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+        var link = document.createElement("a");
+        var url = URL.createObjectURL(blob);
+        link.setAttribute("href", url); link.setAttribute("download", filename);
+        document.body.appendChild(link); link.click();
+        document.body.removeChild(link); URL.revokeObjectURL(url);
+    }
+    function exportSelectedDataToCSV() {
+        var headers = ['Patent Number', 'Title', 'Classification Tag', 'Category', 'Application Date', 'Expiry Date', 'Is Terminal Disclaimer', 'Technology Tag', 'Efficacy Tag', 'Abstract', 'PTA Extension', 'Note'];
+        var csvRows = [headers.join(',')];
+        var checkedBoxes = document.querySelectorAll('#patent-data-table .export-checkbox:checked');
+        if (checkedBoxes.length === 0) { alert("請先勾選您想要匯出的專利項目。"); return; }
+        checkedBoxes.forEach(function(checkbox) {
+            var dataRow = checkbox.closest('tr');
+            var rowData = gatherRowData(dataRow);
+            var orderedRow = headers.map(function(header) { return rowData[header] || ""; });
+            csvRows.push(orderedRow.map(sanitizeCell).join(','));
+        });
+        downloadCSV(csvRows.join('\n'), "patent_data_selected.csv");
+        alert("成功匯出 " + checkedBoxes.length + " 筆已勾選的專利資料！");
+    }
+    function exportFullVersionToCSV() {
+        var headers = ['Patent Number', 'Title', 'Classification Tag', 'Category', 'Application Date', 'Expiry Date', 'Is Terminal Disclaimer', 'Technology Tag', 'Efficacy Tag', 'Abstract', 'PTA Extension', 'Note'];
+        var csvRows = [headers.join(',')];
+        var allDataRows = document.querySelectorAll('#patent-data-table > tbody > tr:not(.category-header):not(.note-row)');
+        if (allDataRows.length === 0) { alert("表格中沒有找到任何資料可供匯出。"); return; }
+        allDataRows.forEach(function(dataRow) {
+            var rowData = gatherRowData(dataRow);
+            var orderedRow = headers.map(function(header) { return rowData[header] || ""; });
+            csvRows.push(orderedRow.map(sanitizeCell).join(','));
+        });
+        downloadCSV(csvRows.join('\n'), "patent_data_full_version.csv");
+        alert("成功匯出 " + allDataRows.length + " 筆完整專利資料！");
+    }
+    function loadDataFromCSV(event) {
+        var file = event.target.files[0]; if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var lines = e.target.result.split(/\r?\n/);
+            var recordsUpdated = 0;
+            var headers = lines[0].split(',').map(function(h) { return h.trim().replace(/"/g, '').toLowerCase(); });
+            var patentIdIndex = headers.indexOf('patent number');
+            if (patentIdIndex === -1) { alert("CSV 檔案中找不到 'Patent Number' 欄位。"); event.target.value = ''; return; }
+            var headerMap = {};
+            headers.forEach(function(h, i) { headerMap[h] = i; });
+            for (var i = 1; i < lines.length; i++) {
+                var line = lines[i]; if (line.trim() === '') continue;
+                var columns = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+                var patentId = (columns[patentIdIndex] || '').trim().replace(/^"|"$/g, '');
+                if (patentId) {
+                    var escapedPatentId = patentId.replace(/"/g, '\"');
+                    var dataRow = document.querySelector(`tr[data-patent-number="${escapedPatentId}"]`);
+                    if(dataRow) {
+                        var noteRow = dataRow.nextElementSibling;
+                        var fields = [...dataRow.querySelectorAll('.editable-field'), ...(noteRow ? noteRow.querySelectorAll('.editable-field') : [])];
+                        fields.forEach(function(field) {
+                            var columnKey = field.dataset.column.toLowerCase();
+                            var columnIndex = headerMap[columnKey];
+                            if (columnIndex !== undefined && columns[columnIndex] !== undefined) {
+                                var value = columns[columnIndex].trim().replace(/^"|"$/g, '').replace(/""/g, '"');
+                                field.value = value;
+                            }
+                        });
+                        [...dataRow.querySelectorAll('textarea.editable-field'), ...(noteRow ? noteRow.querySelectorAll('textarea.editable-field') : [])].forEach(autoResizeTextarea);
+                        recordsUpdated++;
+                    }
+                }
+            }
+            alert("處理完成！共更新了 " + recordsUpdated + " 筆專利的資料。");
+            event.target.value = '';
+        };
+        reader.readAsText(file, 'UTF-8');
+    }
+</script>
+</body>
+</html>

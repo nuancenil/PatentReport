@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>My Reports</title>
+  <link rel="stylesheet" href="./assets/style.css">
+  <meta name="robots" content="index,follow">
+</head>
+<body>
+  <header class="header">
+    <div>
+      <h1>My Reports</h1>
+      <p class="meta">把 HTML 檔放進 <code>/reports</code>，這裡就會自動列出連結。</p>
+      <p class="small">分享格式：<code>https://&lt;user&gt;.github.io/&lt;repo&gt;/reports/&lt;filename&gt;.html</code></p>
+    </div>
+    <div class="search"><input id="q" type="search" placeholder="搜尋檔名…" /></div>
+  </header>
+
+  <ul id="list" class="list"><li class="item">載入中…</li></ul>
+
+  <footer>Powered by GitHub Pages · 只要 push 檔案即可更新</footer>
+
+<script>
+(function(){
+  // Try to auto-detect owner/repo for project pages: https://user.github.io/repo/
+  const hostParts = location.hostname.split(".");
+  const ownerGuess = hostParts[0];
+  const pathParts = location.pathname.split("/").filter(Boolean);
+  const repoGuess = pathParts[0] || ""; // works for project pages
+
+  // If auto-detect fails (e.g., user site), you can hardcode here:
+  const owner = ownerGuess || "YOUR_GITHUB_USERNAME";
+  const repo  = repoGuess  || "YOUR_REPO_NAME";
+  const branch = "main";
+
+  const ul = document.getElementById("list");
+  const search = document.getElementById("q");
+
+  async function load(){
+    try {
+      const api = `https://api.github.com/repos/${owner}/${repo}/contents/reports?ref=${branch}`;
+      const res = await fetch(api);
+      if(!res.ok) throw new Error("GitHub API error: " + res.status);
+      const files = await res.json();
+      const pages = files.filter(f => f.type === "file" && /\.html?$/i.test(f.name))
+                         .sort((a,b)=> a.name.localeCompare(b.name, 'en', {numeric:true}));
+      render(pages);
+    } catch(e){
+      ul.innerHTML = `<li class="item">載入失敗：${e.message}. 請確認已建立 <code>/reports</code> 資料夾，且這個 repo 已啟用 Pages。</li>`;
+      console.error(e);
+    }
+  }
+
+  function render(items){
+    const base = location.pathname.replace(/\/$/, "");
+    const q = (search.value || "").toLowerCase();
+    const filtered = items.filter(x => x.name.toLowerCase().includes(q));
+    if(filtered.length === 0){
+      ul.innerHTML = '<li class="item">沒有符合的檔案。</li>';
+      return;
+    }
+    ul.innerHTML = "";
+    filtered.forEach(f => {
+      const li = document.createElement("li");
+      li.className = "item";
+      const a = document.createElement("a");
+      a.href = `${base}/reports/${encodeURIComponent(f.name)}`;
+      a.textContent = decodeURIComponent(f.name).replace(/[-_]/g, " ").replace(/\.html?$/i, "");
+      const badge = document.createElement("span");
+      badge.className = "badge";
+      badge.textContent = Math.round((f.size||0)/1024) + " KB";
+      li.appendChild(a);
+      li.appendChild(badge);
+      ul.appendChild(li);
+    });
+  }
+
+  search.addEventListener("input", ()=>load());
+  load();
+})();
+</script>
+</body>
+</html>
